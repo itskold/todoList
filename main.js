@@ -22,10 +22,13 @@ let creationTache = ()=>{
     creatTextCheck.className = 'd-inline espace-text-button'
     creatCheck.appendChild(creatLienCheck,creatCheck)
     creatLienCheck.className = 'px-3'
+    creatLienCheck.id= 'check'
     creatCheck.appendChild(creatLienEdit,creatCheck)
     creatLienEdit.className = 'px-3'
+    creatLienEdit.id= 'edit'
     creatCheck.appendChild(creatLienDelete,creatCheck)
     creatLienDelete.className = 'px-3'
+    creatLienDelete.id = 'delete'
     creatLienCheck.appendChild(creatButtonCheck,creatLienCheck)
     creatLienEdit.appendChild(creatButtonEdit,creatLienEdit)
     creatLienDelete.appendChild(creatButtonDelete,creatLienDelete)
@@ -33,6 +36,20 @@ let creationTache = ()=>{
     creatButtonCheck.className = 'fas fa-check-circle text-success'
     creatButtonEdit.className = 'fas fa-edit text-warning'
     creatButtonDelete.className = 'fas fa-trash-alt text-danger'
+    // EVENT  DES DIFFERENTS BUTTON DE MODIFICATION
+    let lesButtonModif = document.getElementsByTagName('a')
+    for(let i=0;i<lesButtonModif.length;i++){
+        lesButtonModif[i].addEventListener('click',()=>{
+            if(lesButtonModif[i].id == "check"){
+                creatCheck.classList.add('bg-success')
+                creatButtonCheck.className = 'fas fa-minus-circle text-danger'
+            } else if(lesButtonModif[i].id=="edit"){
+                let creatInput = document.createElement('input')
+                creatTextCheck.replaceWith(creatInput)
+                creatInput.className = "espace-input-button"
+            }
+        })
+    }
     
 }
 
