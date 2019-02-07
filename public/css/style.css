@@ -17949,12 +17949,10 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
-.espace-text-button {
-  margin-right: 835px;
-}
-
-.espace-input-button {
-  margin-right: 750px;
+a {
+  border: solid 1px black;
+  margin: 0 2px;
+  float: right;
 }
 
 /*# sourceMappingURL=style.css.map */
