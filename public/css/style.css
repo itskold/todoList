@@ -17955,4 +17955,24 @@ a {
   float: right;
 }
 
+.bgblanc {
+  background-color: white;
+}
+
+.invisible {
+  display: none;
+}
+
+.border-tiret {
+  background-color: red;
+}
+
+.done {
+  display: none;
+}
+
+.nodone {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

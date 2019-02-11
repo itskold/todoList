@@ -1,9 +1,13 @@
 let leInput = document.getElementsByTagName('input')[0]
 let buttonAjouter = document.getElementsByTagName('button')[0]
 let laListe = document.getElementById('laListe')
-
+let leTrie = document.querySelectorAll('#le-trie button')
 let laTache;
+let laTacheEnter;
 let saveInput;
+let saveOver;
+let elemPri;
+let tabTermine=[]
 
 let creationTache = ()=>{
     // CREATION DE BALISE
@@ -19,7 +23,9 @@ let creationTache = ()=>{
     
     // IMPLANTATION DES BALISE + CLASS
     laListe.appendChild(creatCheck,laListe)
-    creatCheck.className = 'border border-dark px-3 py-3 my-3 text-uppercase'
+    creatCheck.className = 'border border-dark px-3 py-3 my-3 text-uppercase bg-blanc'
+    creatCheck.setAttribute('draggable','true')
+    creatCheck.draggable = "true"
     creatCheck.appendChild(creatTextCheck,creatCheck)
     creatTextCheck.innerText = laTache
     creatTextCheck.className = 'd-inline'
@@ -55,8 +61,9 @@ let creationTache = ()=>{
             if(lesButtonModif[i].id == "check" && creatButtonCheck==event.target){
                 console.log(event.currentTarget)
                 event.currentTarget.parentNode.classList.toggle('bg-success')
-                event.target.className = 'fas fa-minus-circle text-danger'
+                event.target.classList.toggle('text-danger')
                 editor=false
+                
             // LE BOUTON EDITOR
             } else if(lesButtonModif[i].id=="edit" && editor == true && creatButtonEdit==event.target){
                 let creatInput = document.createElement('input')
@@ -79,28 +86,84 @@ let creationTache = ()=>{
                 })
                 // LE BOUTON DELETE
             } else if(lesButtonModif[i].id=="delete" && creatButtonDelete==event.target){
-                reponse = prompt("Entrer votre mdp :")
-                if(reponse=="hello"){
+                reponse = prompt("Taper OUI si vous voulez supprimer cette tâche")
+                if(reponse=="OUI"){
                     creatCheck.remove()  
                 } else {
-                    alert("Va t'en imposteur")
+                    alert("Vous l'avez mal ecrit, veuillez réeesayer avec des majuscules!")
                 }
             }
         })
     }
+    let checkDone = []
+    let checkNoDone = []
+    // LE TRIE
+    /// LE BOUTON A FAIRE
+    leTrie[1].addEventListener('click',()=>{
+        if(creatCheck.classList[7]=="bg-success"){
+            creatCheck.classList.add('done')
+        }
+        event.preventDefault()
+    })
     
+    /// LE BOUTON TERMINER
+    leTrie[2].addEventListener('click',()=>{
+        if(creatCheck.classList[7]=="bg-success"){
+            creatCheck.classList.remove('nodone')
+        } else {
+            creatCheck.classList.add('nodone')
+        }
+    })
+    // LES FONCTIONS
+    let dragStart = ()=>{
+        console.log('start')
+        setTimeout(()=>(creatCheck.className='invisible'),0)
+        elemPri = event.currentTarget
+       
+    }
+    let dragEnd = ()=>{
+        console.log('end')
+        creatCheck.classList.remove('invisible') 
+        creatCheck.className = 'border border-dark px-3 py-3 my-3 text-uppercase bg-blanc'
+        laListe.classList.remove('invisible')
+    }
+    let dragOver=(e)=>{
+        e.preventDefault()
+        saveOver = event.currentTarget
+        
+    }
+    let dragEnter=(e)=>{
+        e.preventDefault()
+    }
+    let dragLeave=()=>{
+    }
+    let recup=()=>{
+        console.log(saveOver.innerHTML)
+        console.log(elemPri.innerHTML)
+        let saveInner = saveOver.innerHTML
+        saveOver.innerHTML = elemPri.innerHTML
+        elemPri.innerHTML = saveInner
+    }
+    let drop=()=>{
+        console.log(saveOver)
+        recup()
+        // e.preventDefault()
+    }
+    // L'ECOUTE DES CHECK
+    creatCheck.addEventListener('dragstart',dragStart)
+    creatCheck.addEventListener('dragend',dragEnd)
+    creatCheck.addEventListener('dragover',dragOver)
+    creatCheck.addEventListener('dragenter',dragEnter)
+    creatCheck.addEventListener('dragleave',dragLeave)
+    creatCheck.addEventListener('drop',drop)
+    creatCheck.addEventListener('click',()=>{
+        elemPri = event.target
+    })
 }
-
-
-
-
-
 buttonAjouter.addEventListener('click',()=>{
+    laTache = leInput.value
     creationTache()
     leInput.value = ""
+    event.preventDefault()
     console.log(laTache)
-})
-
-leInput.addEventListener('focusout',()=>{
-    laTache = event.target.value
 })

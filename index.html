@@ -11,10 +11,17 @@
     <div class="container">
     <h1 class="bg-info border-left border-primary mx-5 my-3 py-3 text-light px-4">TodoList</h1>
     </div>
-    <div class="mx-5 my-3 py-3 bg-white container border border-info">
+    <div class="mx-5 my-3 py-3 bg-white container border border-info mx-auto" id="leselem">
         <h1>Ajouter une tâche :</h1>
+        <form>
         <input type="text" class="w-25 mr-5 mb-3">
         <button class="btn btn-info mb-3">Ajouter</button>
+        </form>
+        <div id="le-trie">
+            <button class="btn btn-info mb-3 text-uppercase">tous</button>
+            <button class="btn btn-info mb-3 text-uppercase">à faire</button>
+            <button class="btn btn-info mb-3 text-uppercase">terminé</button>
+        </div>
         <div id="laListe"></div>
 
     </div>
